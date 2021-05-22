@@ -6,38 +6,70 @@ import {fetchDadJokes} from '../api'
 
 const jokeReducer = (state, action) => {
   switch (action.type) {
-    case 'pending':
-      return Object.assign({}, state, {status: 'pending', error: null})
-    case 'resolved':
+    case 'PENDING':
+      return Object.assign({}, state, {status: 'PENDING', error: null})
+    case 'RESOLVED':
       return Object.assign({}, state, {
-        status: 'resolved',
+        status: 'RESOLVED',
         data: [...state.data, action.data],
         error: null,
       })
-    case 'rejected':
-      return Object.assign({}, state, {status: 'rejected', error: action.error})
+    case 'REJECTED':
+      return Object.assign({}, state, {status: 'REJECTED', error: action.error})
     default:
-      throw new Error(`What's going on with ${action}`)
+      throw new Error(`What's going on with ${action.type}`)
   }
 }
 
-// preload some conversations
-// message form onsubmit
-// render your message
-// fetch new messages
-// add to state
-// render new messages
-const Chatroom = () => {
+function useDadJoke(initialState) {
   const [state, dispatch] = React.useReducer(jokeReducer, {
     status: 'idle',
     data: [],
+    ...initialState,
   })
 
-  const handleClick = e => {
-    dispatch({type: 'pending'})
-    fetchDadJokes().then(data => {
-      dispatch({type: 'resolved', data})
-    })
+  const run = React.useCallback(
+    promise => {
+      console.log('useCallback')
+      dispatch({type: 'PENDING'})
+      promise.then(
+        data => {
+          dispatch({type: 'RESOLVED', data})
+        },
+        error => dispatch({type: 'REJECTED', error}),
+      )
+    },
+    [dispatch],
+  )
+
+  return {...state, dispatch, run}
+}
+
+// preload some conversations
+const Chatroom = () => {
+  const [reply, setReply] = React.useState('')
+
+  const {data, status, error, dispatch, run} = useDadJoke({
+    status: reply ? 'pending' : 'idle',
+    data: window.localStorage.getItem('dad-jokes')
+      ? window.localStorage.getItem('dad-jokes')
+      : [],
+  })
+
+  React.useEffect(() => {
+    // dad won't speak to me if I don't speak with him
+    if (!reply) {
+      return
+    }
+    dispatch({type: 'RESOLVED', data: reply})
+    run(fetchDadJokes())
+    // reset state
+    setReply('')
+  }, [dispatch, reply, run])
+
+  function handleSubmit(data) {
+    console.log('handleSubmit')
+    setReply(data)
   }
 
   // for debugging
@@ -46,10 +78,9 @@ const Chatroom = () => {
   return (
     <div className="imessage">
       <Header />
-      <pre>{JSON.stringify(state)}</pre>
-      <MessageDisplay messages={state.data} />
-      <MessageForm />
-      <button onClick={handleClick}>New Joke</button>
+      <pre>{JSON.stringify(status)}</pre>
+      <MessageDisplay messages={data} status={status} />
+      <MessageForm reply={reply} onSubmit={handleSubmit} />
     </div>
   )
 }

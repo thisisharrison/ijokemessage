@@ -1,4 +1,12 @@
-export const fetchDadJokes = () => {
+function randomDelay(callback = {}) {
+  return new Promise(resolve =>
+    setTimeout(() => {
+      return resolve(console.log('I slept well'))
+    }, 3000),
+  )
+}
+
+const randomDadJoke = () => {
   return window
     .fetch('https://icanhazdadjoke.com/', {
       method: 'GET',
@@ -18,4 +26,9 @@ export const fetchDadJokes = () => {
         }
       }
     })
+}
+
+export const fetchDadJokes = async () => {
+  await randomDelay()
+  return randomDadJoke()
 }
