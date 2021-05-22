@@ -1,5 +1,9 @@
+import Chatroom from './Chatroom'
+
+// useContext for theme
+// useContext for query mode => REST or GraphQL
 function App() {
-  return <h1>Hello World</h1>
+  return <Chatroom />
 }
 
 export default App
