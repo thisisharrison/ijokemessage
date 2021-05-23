@@ -13,6 +13,7 @@ const jokeReducer = (state, action) => {
         status: 'RESOLVED',
         data: [...state.data, action.data],
         error: null,
+        length: state.length + 1,
       })
     case 'REJECTED':
       return Object.assign({}, state, {
@@ -24,12 +25,13 @@ const jokeReducer = (state, action) => {
   }
 }
 
-function useDadJoke(initialState) {
+function useDadJoke(initialState, setHistory, setLength) {
   const [state, dispatch] = React.useReducer(jokeReducer, {
     status: 'idle',
-    data: [],
     ...initialState,
   })
+
+  const {length, data} = state
 
   const run = React.useCallback(
     promise => {
@@ -46,19 +48,38 @@ function useDadJoke(initialState) {
     [dispatch],
   )
 
+  const prevLength = React.useRef(length)
+
+  // Only run this when prevLength is out of sync with state length
+  const updateStorage = React.useCallback(() => {
+    if (prevLength.current !== length) {
+      setHistory(JSON.stringify(data))
+      setLength(JSON.stringify(length))
+      prevLength.current = length
+    }
+  }, [data, length, setHistory, setLength])
+
+  // store chat history in localStorage
+  React.useEffect(() => {
+    updateStorage()
+  }, [updateStorage])
+
   return {...state, dispatch, run}
 }
 
 // preload some conversations
-const Chatroom = () => {
+const Chatroom = ({history, setHistory, length, setLength}) => {
   const [reply, setReply] = React.useState('')
 
-  const {data, status, error, dispatch, run} = useDadJoke({
-    status: reply ? 'pending' : 'idle',
-    data: window.localStorage.getItem('dad-jokes')
-      ? window.localStorage.getItem('dad-jokes')
-      : [],
-  })
+  const {data, status, error, dispatch, run} = useDadJoke(
+    {
+      status: reply ? 'pending' : 'idle',
+      data: history,
+      length,
+    },
+    setHistory,
+    setLength,
+  )
 
   React.useEffect(() => {
     // dad won't speak to me if I don't speak with him
