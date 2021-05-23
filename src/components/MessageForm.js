@@ -27,7 +27,7 @@ const MessageForm = ({reply = '', onSubmit}) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="message-form" autoComplete="off">
         <input
           value={message}
           onChange={handleChange}

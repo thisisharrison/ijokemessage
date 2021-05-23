@@ -79,11 +79,13 @@ const Chatroom = () => {
   window.fetchDadJokes = fetchDadJokes
 
   return (
-    <div className="imessage">
-      <Header />
-      <MessageDisplay messages={data} status={status} error={error} />
+    <>
+      <div className="imessage-container">
+        <Header />
+        <MessageDisplay messages={data} status={status} error={error} />
+      </div>
       <MessageForm reply={reply} onSubmit={handleSubmit} />
-    </div>
+    </>
   )
 }
 
