@@ -1,7 +1,7 @@
 import React from 'react'
 import Loader from './Loader'
 
-const MessageDisplay = ({messages, status}) => {
+const MessageDisplay = ({messages, status, error}) => {
   return (
     <>
       {messages.map(message => (
@@ -10,10 +10,11 @@ const MessageDisplay = ({messages, status}) => {
         </p>
       ))}
       {status === 'PENDING' ? (
-        <p className="incoming loader" aria-label="loading...">
+        <div className="incoming loader" aria-label="loading...">
           <Loader />
-        </p>
+        </div>
       ) : null}
+      {status === 'REJECTED' ? <div role="alert">{error.error}</div> : null}
     </>
   )
 }

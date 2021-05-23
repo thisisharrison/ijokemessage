@@ -15,7 +15,10 @@ const jokeReducer = (state, action) => {
         error: null,
       })
     case 'REJECTED':
-      return Object.assign({}, state, {status: 'REJECTED', error: action.error})
+      return Object.assign({}, state, {
+        status: 'REJECTED',
+        error: action.error,
+      })
     default:
       throw new Error(`What's going on with ${action.type}`)
   }
@@ -30,13 +33,14 @@ function useDadJoke(initialState) {
 
   const run = React.useCallback(
     promise => {
-      console.log('useCallback')
       dispatch({type: 'PENDING'})
       promise.then(
         data => {
           dispatch({type: 'RESOLVED', data})
         },
-        error => dispatch({type: 'REJECTED', error}),
+        error => {
+          dispatch({type: 'REJECTED', error})
+        },
       )
     },
     [dispatch],
@@ -68,7 +72,6 @@ const Chatroom = () => {
   }, [dispatch, reply, run])
 
   function handleSubmit(data) {
-    console.log('handleSubmit')
     setReply(data)
   }
 
@@ -78,8 +81,7 @@ const Chatroom = () => {
   return (
     <div className="imessage">
       <Header />
-      <pre>{JSON.stringify(status)}</pre>
-      <MessageDisplay messages={data} status={status} />
+      <MessageDisplay messages={data} status={status} error={error} />
       <MessageForm reply={reply} onSubmit={handleSubmit} />
     </div>
   )

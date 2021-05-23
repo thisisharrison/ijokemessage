@@ -2,7 +2,7 @@ function randomDelay(callback = {}) {
   return new Promise(resolve =>
     setTimeout(() => {
       return resolve(console.log('I slept well'))
-    }, 3000),
+    }, 1500),
   )
 }
 
@@ -19,16 +19,24 @@ const randomDadJoke = () => {
       if (response.ok) {
         const joke = data?.joke
         if (!joke) {
-          return Promise.reject('Bad')
+          return Promise.reject(data)
         } else {
           data.className = 'incoming'
           return Promise.resolve(data)
         }
+      } else {
+        return Promise.reject(data)
       }
+    })
+    .catch(error => {
+      const message = {error: error}
+      return Promise.reject(message)
     })
 }
 
-export const fetchDadJokes = async () => {
-  await randomDelay()
+const fetchDadJokes = async () => {
+  // await randomDelay()
   return randomDadJoke()
 }
+
+export {fetchDadJokes, randomDelay}

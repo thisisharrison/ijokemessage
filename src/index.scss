@@ -17,45 +17,44 @@
   overflow-y: scroll;
 }
 
-.imessage p {
+.imessage p,
+div.loader {
   border-radius: 1.15rem;
   line-height: 1.25;
   max-width: 75%;
   padding: 0.5rem 0.875rem;
   position: relative;
   word-wrap: break-word;
-}
-
-.imessage p::before,
-.imessage p::after {
-  bottom: -0.1rem;
-  content: '';
-  height: 1rem;
-  position: absolute;
+  &:before,
+  &:after {
+    bottom: -0.1rem;
+    content: '';
+    height: 1rem;
+    position: absolute;
+  }
 }
 
 p.outgoing {
   align-self: flex-end;
   background-color: #248bf5;
   color: #fff;
+  &:before {
+    border-bottom-left-radius: 0.8rem 0.7rem;
+    border-right: 1rem solid #248bf5;
+    right: -0.35rem;
+    transform: translate(0, -0.1rem);
+  }
+  &:after {
+    background-color: #fff;
+    border-bottom-left-radius: 0.5rem;
+    right: -40px;
+    transform: translate(-30px, -2px);
+    width: 10px;
+  }
 }
 
-p.outgoing::before {
-  border-bottom-left-radius: 0.8rem 0.7rem;
-  border-right: 1rem solid #248bf5;
-  right: -0.35rem;
-  transform: translate(0, -0.1rem);
-}
-
-p.outgoing::after {
-  background-color: #fff;
-  border-bottom-left-radius: 0.5rem;
-  right: -40px;
-  transform: translate(-30px, -2px);
-  width: 10px;
-}
-
-p {
+p,
+div.loader {
   margin: 0.5rem 0;
   width: fit-content;
 }
@@ -72,25 +71,24 @@ p.outgoing ~ p.outgoing:last-child {
   margin-bottom: 0.5rem;
 }
 
-p.incoming {
+p.incoming,
+div.loader {
   align-items: flex-start;
   background-color: #e5e5ea;
   color: #000;
-}
-
-p.incoming:before {
-  border-bottom-right-radius: 0.8rem 0.7rem;
-  border-left: 1rem solid #e5e5ea;
-  left: -0.35rem;
-  transform: translate(0, -0.1rem);
-}
-
-p.incoming::after {
-  background-color: #fff;
-  border-bottom-right-radius: 0.5rem;
-  left: 20px;
-  transform: translate(-30px, -2px);
-  width: 10px;
+  &:before {
+    border-bottom-right-radius: 0.8rem 0.7rem;
+    border-left: 1rem solid #e5e5ea;
+    left: -0.35rem;
+    transform: translate(0, -0.1rem);
+  }
+  &:after {
+    background-color: #fff;
+    border-bottom-right-radius: 0.5rem;
+    left: 20px;
+    transform: translate(-30px, -2px);
+    width: 10px;
+  }
 }
 
 p.emoji {
@@ -174,5 +172,12 @@ h2 {
 .header {
   width: 100%;
   color: #222;
+  text-align: center;
+}
+
+div[role='alert'] {
+  color: #666;
+  font-size: small;
+  background-color: transparent;
   text-align: center;
 }

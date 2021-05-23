@@ -12,7 +12,7 @@ function formatMessage(message) {
 
 // onSubmit will ccall setReply in Chatroom
 // reply triggers useEffect and calls run from useDadJoke hook
-const MessageForm = ({reply, onSubmit}) => {
+const MessageForm = ({reply = '', onSubmit}) => {
   const [message, setMessage] = React.useState(reply)
 
   function handleSubmit(e) {
