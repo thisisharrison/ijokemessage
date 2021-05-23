@@ -1,6 +1,7 @@
-function randomDelay(callback = {}) {
+function randomDelay() {
   return new Promise(resolve =>
     setTimeout(() => {
+      // eslint-disable-next-line no-console
       return resolve(console.log('I slept well'))
     }, 1500),
   )

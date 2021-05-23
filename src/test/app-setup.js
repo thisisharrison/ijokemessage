@@ -1,3 +1,4 @@
+import React from 'react'
 import {render, screen} from '@testing-library/react'
 import faker from 'faker'
 import App from '../components/App'
