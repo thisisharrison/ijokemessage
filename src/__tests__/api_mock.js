@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import {handlers, jokeResponse} from '../test/server-handlers'
-import {setUp} from '../test/app-setup'
+import {setUpApp} from '../test/test_utils'
 
 // create mock server
 const server = setupServer(...handlers)
@@ -17,7 +17,7 @@ const errorMessage = 'Dad has left the chat'
 
 describe('Dad jokes api', () => {
   test('displays new joke as incoming message', async () => {
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
     expect(screen.getByLabelText(/loading/i)).toBeInTheDocument()
@@ -36,7 +36,7 @@ describe('Dad jokes api', () => {
         )
       }),
     )
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
@@ -53,7 +53,7 @@ describe('Dad jokes api', () => {
         )
       }),
     )
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
     await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))

@@ -3,17 +3,17 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import faker from 'faker'
 import MessageForm from '../components/MessageForm'
-import {setUp} from '../test/app-setup'
+import {setUpApp} from '../test/test_utils'
 
 describe('<App />', () => {
   test('disable when input is empty', () => {
-    const {input, submit} = setUp()
+    const {input, submit} = setUpApp()
     expect(input).toHaveTextContent('')
     expect(submit).toHaveAttribute('disabled')
   })
 
   test("submits child's reply", () => {
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
     const childMessage = screen.getByText(message)

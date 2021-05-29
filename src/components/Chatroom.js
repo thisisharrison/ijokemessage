@@ -99,9 +99,15 @@ const Chatroom = ({history, setHistory, length, setLength}) => {
   // for debugging
   window.fetchDadJokes = fetchDadJokes
 
+  const containerRef = React.useRef()
+
+  React.useLayoutEffect(() => {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight
+  })
+
   return (
     <>
-      <div className="imessage-container">
+      <div className="imessage-container" ref={containerRef} role="log">
         <Header />
         <MessageDisplay messages={data} status={status} error={error} />
       </div>
