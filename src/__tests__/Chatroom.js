@@ -5,7 +5,7 @@ import faker from 'faker'
 import {initialState, initialLength, setUpChatroom} from '../test/test_utils'
 
 describe('<Chatroom />', () => {
-  test('should render initial state', () => {
+  test('should render initial state ☝️', () => {
     setUpChatroom()
     for (const message of initialState) {
       const text = screen.getByText(message.joke)
@@ -14,7 +14,7 @@ describe('<Chatroom />', () => {
     }
   })
 
-  test('should store messages to localStorage', () => {
+  test('should store messages to localStorage 📭', () => {
     const {setHistory, setLength, length, input, button} = setUpChatroom()
     expect(setHistory).toHaveBeenCalledTimes(0)
     expect(setLength).toHaveBeenCalledTimes(0)
@@ -24,7 +24,7 @@ describe('<Chatroom />', () => {
     expect(setLength).toHaveBeenCalledTimes(1)
   })
 
-  test('should scroll to the bottom', () => {
+  test('should scroll to the bottom 🛗', () => {
     setUpChatroom()
     const log = screen.getByRole('log')
     const scrollToTopSetter = jest.fn()

@@ -16,13 +16,13 @@ afterEach(() => {
 })
 
 describe('<App />', () => {
-  test('disable when input is empty', () => {
+  test('disable when input is empty ⛔️', () => {
     const {input, submit} = setUpApp()
     expect(input).toHaveTextContent('')
     expect(submit).toHaveAttribute('disabled')
   })
 
-  test("submits child's reply", () => {
+  test("submits child's reply 👶", () => {
     const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
@@ -31,7 +31,7 @@ describe('<App />', () => {
     expect(childMessage).toHaveClass('outgoing')
   })
 
-  test('handleSubmmit', () => {
+  test('handleSubmmit 📤', () => {
     const handleSubmit = jest.fn()
     const filter = new Filter()
     const message = filter.clean(faker.lorem.sentence())

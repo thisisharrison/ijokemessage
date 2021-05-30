@@ -16,7 +16,7 @@ afterAll(() => server.close())
 const errorMessage = 'Dad has left the chat'
 
 describe('Dad jokes api', () => {
-  test('displays new joke as incoming message', async () => {
+  test('displays new joke as incoming message 😆', async () => {
     const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
@@ -26,7 +26,7 @@ describe('Dad jokes api', () => {
     expect(screen.getByText(jokeResponse.joke)).toHaveClass('incoming')
   })
 
-  test('renders unknown server error', async () => {
+  test('renders unknown server error 🤨', async () => {
     server.use(
       rest.get('https://icanhazdadjoke.com/', async (req, res, ctx) => {
         return res(
@@ -43,7 +43,7 @@ describe('Dad jokes api', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(errorMessage)
   })
 
-  test('renders no joke error', async () => {
+  test('renders no joke error 😫', async () => {
     server.use(
       rest.get('https://icanhazdadjoke.com/', async (req, res, ctx) => {
         return res(
