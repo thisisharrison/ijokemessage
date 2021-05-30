@@ -212,3 +212,15 @@ div[role='alert'] {
     font-size: 1rem;
   }
 }
+
+.profanity-fallback {
+  display: grid;
+  place-items: center;
+  & > div {
+    color: red;
+  }
+  & > button,
+  & > button::after {
+    content: ' 😳';
+  }
+}

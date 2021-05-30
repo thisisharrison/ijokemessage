@@ -1,5 +1,6 @@
 import React from 'react'
 import {nanoid} from 'nanoid'
+import Filter from 'bad-words'
 
 // add id for key and className for styling
 function formatMessage(message) {
@@ -14,16 +15,25 @@ function formatMessage(message) {
 // reply triggers useEffect and calls run from useDadJoke hook
 const MessageForm = ({reply = '', onSubmit}) => {
   const [message, setMessage] = React.useState(reply)
+  const [unclean, setUnclean] = React.useState(false)
+  const filter = React.useMemo(() => new Filter(), [])
 
   function handleSubmit(e) {
     e.preventDefault()
-    onSubmit(formatMessage(message))
-    setMessage('')
+    // check if user is swearing
+    if (filter.isProfane(message)) {
+      setUnclean(true)
+    } else {
+      onSubmit(formatMessage(message))
+      setMessage('')
+    }
   }
 
   function handleChange(e) {
     setMessage(e.target.value)
   }
+
+  if (unclean) throw {message: "Don't swear at your Dad!"}
 
   return (
     <>

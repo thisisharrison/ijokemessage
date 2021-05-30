@@ -9,11 +9,7 @@ const MessageDisplay = ({messages, status, error}) => {
           {message.joke}
         </p>
       ))}
-      {status === 'PENDING' ? (
-        <div className="incoming loader" aria-label="loading...">
-          <Loader />
-        </div>
-      ) : null}
+      {status === 'PENDING' ? <Loader /> : null}
       {status === 'REJECTED' ? <div role="alert">{error.error}</div> : null}
     </div>
   )

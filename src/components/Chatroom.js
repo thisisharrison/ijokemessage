@@ -3,6 +3,9 @@ import Header from './Header'
 import MessageDisplay from './MessageDisplay'
 import MessageForm from './MessageForm'
 import {fetchDadJokes} from '../api'
+import {ErrorBoundary} from 'react-error-boundary'
+import {ProfanityFallback} from './ErrorBoundary'
+import Filter from 'bad-words'
 
 const jokeReducer = (state, action) => {
   switch (action.type) {
@@ -53,8 +56,8 @@ function useDadJoke(initialState, setHistory, setLength) {
   // Only run this when prevLength is out of sync with state length
   const updateStorage = React.useCallback(() => {
     if (prevLength.current !== length) {
-      setHistory(JSON.stringify(data))
-      setLength(JSON.stringify(length))
+      setHistory(data)
+      setLength(length)
       prevLength.current = length
     }
   }, [data, length, setHistory, setLength])
@@ -111,7 +114,14 @@ const Chatroom = ({history, setHistory, length, setLength}) => {
         <Header />
         <MessageDisplay messages={data} status={status} error={error} />
       </div>
-      <MessageForm reply={reply} onSubmit={handleSubmit} />
+      <div>
+        <ErrorBoundary
+          FallbackComponent={ProfanityFallback}
+          onReset={() => setReply('')}
+        >
+          <MessageForm reply={reply} onSubmit={handleSubmit} />
+        </ErrorBoundary>
+      </div>
     </>
   )
 }

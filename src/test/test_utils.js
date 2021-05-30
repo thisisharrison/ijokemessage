@@ -1,15 +1,19 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import faker from 'faker'
+import Filter from 'bad-words'
 import App from '../components/App'
 import Chatroom from '../components/Chatroom'
+
+const filter = new Filter()
 
 function setUpApp() {
   render(<App />)
   const input = screen.getByRole('textbox')
   const submit = screen.getByRole('button', {name: /send/i})
-  const message = faker.lorem.sentence()
-  return {input, submit, message}
+  const message = filter.clean(faker.lorem.words())
+  const badWord = filter.list[10]
+  return {input, submit, message, badWord}
 }
 
 const initialState = [
