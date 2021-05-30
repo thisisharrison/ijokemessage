@@ -5,7 +5,6 @@ import MessageForm from './MessageForm'
 import {fetchDadJokes} from '../api'
 import {ErrorBoundary} from 'react-error-boundary'
 import {ProfanityFallback} from './ErrorBoundary'
-import Filter from 'bad-words'
 
 const jokeReducer = (state, action) => {
   switch (action.type) {

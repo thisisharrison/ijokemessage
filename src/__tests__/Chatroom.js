@@ -1,8 +1,7 @@
-import React from 'react'
-import {render, screen, waitForElementToBeRemoved} from '@testing-library/react'
+import {screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import faker from 'faker'
-import {initialState, initialLength, setUpChatroom} from '../test/test_utils'
+import {initialState, setUpChatroom} from '../test/test_utils'
 
 describe('<Chatroom />', () => {
   test('should render initial state ☝️', () => {
@@ -15,7 +14,7 @@ describe('<Chatroom />', () => {
   })
 
   test('should store messages to localStorage 📭', () => {
-    const {setHistory, setLength, length, input, button} = setUpChatroom()
+    const {setHistory, setLength, input, button} = setUpChatroom()
     expect(setHistory).toHaveBeenCalledTimes(0)
     expect(setLength).toHaveBeenCalledTimes(0)
     userEvent.type(input, faker.lorem.sentence())

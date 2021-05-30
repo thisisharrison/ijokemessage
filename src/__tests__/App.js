@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react'
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -47,7 +48,7 @@ describe('<App />', () => {
   })
 
   test('handles profanity 🤬', () => {
-    const {input, submit, message, badWord} = setUpApp()
+    const {input, submit, badWord} = setUpApp()
     userEvent.type(input, badWord)
     userEvent.click(submit)
 
