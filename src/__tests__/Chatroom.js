@@ -14,10 +14,10 @@ describe('<Chatroom />', () => {
   })
 
   test('should store messages to localStorage 📭', () => {
-    const {setHistory, setLength, input, button} = setUpChatroom()
+    const {setHistory, setLength, input, button, message} = setUpChatroom()
     expect(setHistory).toHaveBeenCalledTimes(0)
     expect(setLength).toHaveBeenCalledTimes(0)
-    userEvent.type(input, faker.lorem.sentence())
+    userEvent.type(input, message)
     userEvent.click(button)
     expect(setHistory).toHaveBeenCalledTimes(1)
     expect(setLength).toHaveBeenCalledTimes(1)
@@ -48,5 +48,21 @@ describe('<Chatroom />', () => {
     expect(scrollToTopSetter).toHaveBeenCalledWith(log.scrollHeight)
 
     scrollToTopSetter.mockClear()
+  })
+
+  test('should have blue style for rest implementation', () => {
+    const {input, button, message} = setUpChatroom({intitialEndpoint: 'rest'})
+    userEvent.type(input, message)
+    userEvent.click(button)
+    expect(screen.getByText(message)).toHaveClass('outgoing')
+  })
+
+  test('should have purple style for graphql implementation', () => {
+    const {input, button, message} = setUpChatroom({
+      intitialEndpoint: 'graphql',
+    })
+    userEvent.type(input, message)
+    userEvent.click(button)
+    expect(screen.getByText(message)).toHaveClass('outgoing graphql')
   })
 })

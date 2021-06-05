@@ -108,7 +108,7 @@ const Chatroom = ({history, setHistory, length, setLength}) => {
   })
 
   return (
-    <>
+    <div>
       <div className="imessage-container" ref={containerRef} role="log">
         <Header />
         <MessageDisplay messages={data} status={status} error={error} />
@@ -121,7 +121,7 @@ const Chatroom = ({history, setHistory, length, setLength}) => {
           <MessageForm reply={reply} onSubmit={handleSubmit} />
         </ErrorBoundary>
       </div>
-    </>
+    </div>
   )
 }
 

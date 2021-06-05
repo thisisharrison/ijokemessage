@@ -37,7 +37,8 @@ div.loader {
   }
 }
 
-p.outgoing {
+p.outgoing,
+p.outgoing-graphql {
   align-self: flex-end;
   background-color: #248bf5;
   color: #fff;
@@ -53,6 +54,13 @@ p.outgoing {
     right: -40px;
     transform: translate(-30px, -2px);
     width: 10px;
+  }
+}
+
+p.graphql {
+  background-color: #9733ee;
+  &:before {
+    border-right: 1rem solid #9733ee;
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
-import {render, screen} from '@testing-library/react'
+import {render} from '../setupTests'
+import {screen} from '@testing-library/react'
 import faker from 'faker'
 import Filter from 'bad-words'
 import App from '../components/App'
@@ -43,7 +44,7 @@ const initialState = [
 
 const initialLength = initialState.length
 
-function setUpChatroom() {
+function setUpChatroom(options = {}) {
   const setHistory = jest.fn()
   const setLength = jest.fn()
   render(
@@ -53,10 +54,12 @@ function setUpChatroom() {
       length={initialLength}
       setLength={setLength}
     />,
+    options,
   )
   const input = screen.getByRole('textbox')
   const button = screen.getByRole('button', {name: /send/i})
-  return {setHistory, setLength, input, button, length}
+  const message = filter.clean(faker.lorem.words())
+  return {setHistory, setLength, input, button, length, message}
 }
 
 export {setUpApp, initialState, initialLength, setUpChatroom}

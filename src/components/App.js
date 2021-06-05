@@ -1,9 +1,10 @@
 import React from 'react'
 import Chatroom from './Chatroom'
+import EndpointToggle from './Toggle'
+import {EndpointContextProvider} from '../context/context'
 
 // To-do:
 // useContext for theme
-// useContext for query mode => REST or GraphQL
 
 // returns initial state for chat history and chat length
 function useLocalStorageState(key, initialState) {
@@ -38,12 +39,17 @@ function App() {
   const [history, setHistory] = useLocalStorageState('dad-jokes', [])
   const [length, setLength] = useLocalStorageState('dad-jokes-length', 0)
   return (
-    <Chatroom
-      history={history}
-      setHistory={setHistory}
-      length={length}
-      setLength={setLength}
-    />
+    <EndpointContextProvider>
+      <div className="app">
+        <Chatroom
+          history={history}
+          setHistory={setHistory}
+          length={length}
+          setLength={setLength}
+        />
+        <EndpointToggle />
+      </div>
+    </EndpointContextProvider>
   )
 }
 
