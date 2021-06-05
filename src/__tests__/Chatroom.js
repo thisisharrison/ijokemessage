@@ -1,6 +1,5 @@
 import {screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import faker from 'faker'
 import {initialState, setUpChatroom} from '../test/test_utils'
 
 describe('<Chatroom />', () => {

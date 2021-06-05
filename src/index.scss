@@ -2,6 +2,15 @@
 // https://codepen.io/AllThingsSmitty/pen/jommGQ
 // by Matt Smith
 
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.625rem 1.3125rem;
+}
+
 .imessage-container {
   background-color: #fff;
   border: 1px solid #e5e5ea;
@@ -9,7 +18,7 @@
   max-width: 600px;
   height: 600px;
   overflow-y: scroll;
-  margin: 2rem auto 1rem;
+  margin: auto 1rem 2rem;
   font-family: 'SanFrancisco';
   font-size: 1.25rem;
 }
