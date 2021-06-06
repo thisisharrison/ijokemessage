@@ -2,6 +2,15 @@
 // https://codepen.io/AllThingsSmitty/pen/jommGQ
 // by Matt Smith
 
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2.625rem 1.3125rem;
+}
+
 .imessage-container {
   background-color: #fff;
   border: 1px solid #e5e5ea;
@@ -9,7 +18,7 @@
   max-width: 600px;
   height: 600px;
   overflow-y: scroll;
-  margin: 2rem auto 1rem;
+  margin: auto 1rem 2rem;
   font-family: 'SanFrancisco';
   font-size: 1.25rem;
 }
@@ -37,7 +46,8 @@ div.loader {
   }
 }
 
-p.outgoing {
+p.outgoing,
+p.outgoing-graphql {
   align-self: flex-end;
   background-color: #248bf5;
   color: #fff;
@@ -53,6 +63,13 @@ p.outgoing {
     right: -40px;
     transform: translate(-30px, -2px);
     width: 10px;
+  }
+}
+
+p.graphql {
+  background-color: #9733ee;
+  &:before {
+    border-right: 1rem solid #9733ee;
   }
 }
 
@@ -210,5 +227,17 @@ div[role='alert'] {
     padding: 0.5rem 0.875rem;
     background-color: white;
     font-size: 1rem;
+  }
+}
+
+.profanity-fallback {
+  display: grid;
+  place-items: center;
+  & > div {
+    color: red;
+  }
+  & > button,
+  & > button::after {
+    content: ' 😳';
   }
 }

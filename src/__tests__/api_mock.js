@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
 import {handlers, jokeResponse} from '../test/server-handlers'
-import {setUp} from '../test/app-setup'
+import {setUpApp} from '../test/test_utils'
 
 // create mock server
 const server = setupServer(...handlers)
@@ -16,17 +16,17 @@ afterAll(() => server.close())
 const errorMessage = 'Dad has left the chat'
 
 describe('Dad jokes api', () => {
-  test('displays new joke as incoming message', async () => {
-    const {input, submit, message} = setUp()
+  test('displays new joke as incoming message 😆', async () => {
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
     expect(screen.getByLabelText(/loading/i)).toBeInTheDocument()
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i))
     expect(screen.getByText(jokeResponse.joke)).toBeInTheDocument()
     expect(screen.getByText(jokeResponse.joke)).toHaveClass('incoming')
   })
 
-  test('renders unknown server error', async () => {
+  test('renders unknown server error 🤨', async () => {
     server.use(
       rest.get('https://icanhazdadjoke.com/', async (req, res, ctx) => {
         return res(
@@ -36,14 +36,14 @@ describe('Dad jokes api', () => {
         )
       }),
     )
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i))
     expect(screen.getByRole('alert')).toHaveTextContent(errorMessage)
   })
 
-  test('renders no joke error', async () => {
+  test('renders no joke error 😫', async () => {
     server.use(
       rest.get('https://icanhazdadjoke.com/', async (req, res, ctx) => {
         return res(
@@ -53,10 +53,10 @@ describe('Dad jokes api', () => {
         )
       }),
     )
-    const {input, submit, message} = setUp()
+    const {input, submit, message} = setUpApp()
     userEvent.type(input, message)
     userEvent.click(submit)
-    await waitForElementToBeRemoved(() => screen.getByLabelText(/loading/i))
+    await waitForElementToBeRemoved(screen.getByLabelText(/loading/i))
     expect(screen.getByRole('alert')).toHaveTextContent(errorMessage)
   })
 })
