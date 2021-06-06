@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/ijokemessage/static/css/main.e26a4f91.chunk.css",
-    "main.js": "/ijokemessage/static/js/main.60666ef2.chunk.js",
-    "main.js.map": "/ijokemessage/static/js/main.60666ef2.chunk.js.map",
+    "main.css": "/ijokemessage/static/css/main.9d07f30d.chunk.css",
+    "main.js": "/ijokemessage/static/js/main.f5063c2c.chunk.js",
+    "main.js.map": "/ijokemessage/static/js/main.f5063c2c.chunk.js.map",
     "runtime-main.js": "/ijokemessage/static/js/runtime-main.5023557c.js",
     "runtime-main.js.map": "/ijokemessage/static/js/runtime-main.5023557c.js.map",
     "static/js/2.ad3cd285.chunk.js": "/ijokemessage/static/js/2.ad3cd285.chunk.js",
     "static/js/2.ad3cd285.chunk.js.map": "/ijokemessage/static/js/2.ad3cd285.chunk.js.map",
     "index.html": "/ijokemessage/index.html",
-    "static/css/main.e26a4f91.chunk.css.map": "/ijokemessage/static/css/main.e26a4f91.chunk.css.map",
+    "static/css/main.9d07f30d.chunk.css.map": "/ijokemessage/static/css/main.9d07f30d.chunk.css.map",
     "static/js/2.ad3cd285.chunk.js.LICENSE.txt": "/ijokemessage/static/js/2.ad3cd285.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5023557c.js",
     "static/js/2.ad3cd285.chunk.js",
-    "static/css/main.e26a4f91.chunk.css",
-    "static/js/main.60666ef2.chunk.js"
+    "static/css/main.9d07f30d.chunk.css",
+    "static/js/main.f5063c2c.chunk.js"
   ]
 }
